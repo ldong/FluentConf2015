@@ -1,0 +1,59 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1344\cocoasubrtf720
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww9620\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\f0\b\fs24 \cf0 Phase 1: A layout with no responsive or fluid elements\
+
+\b0 \
+normalize.css: Normalizes margins/padding and other browser defaults for all browsers. Does not eliminate them like a reset stylesheet might.\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+{\field{\*\fldinst{HYPERLINK "http://necolas.github.io/normalize.css/"}}{\fldrslt 
+\fs28 \cf0 http://necolas.github.io/normalize.css/}}\
+\
+The CSS in the styles.css file should be straightforward.\
+\
+CSS that may not be familiar:\
+\
+html \{\
+  box-sizing: border-box;\
+\}\
+*, *:before, *:after \{\
+  box-sizing: inherit;\
+\}\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+{\field{\*\fldinst{HYPERLINK "http://www.paulirish.com/2012/box-sizing-border-box-ftw/"}}{\fldrslt \cf0 http://www.paulirish.com/2012/box-sizing-border-box-ftw/}}\
+\
+Rather than normal CSS box model calculations, this sets the width attribute in CSS to be what\'92s normally called total width.\
+\
+Standard box model: Consider a box 200px wide, with 10px margin, 1px border, and 10px padding, each on all 4 sides (to keep this easy).\
+\
+The total width of the box, under standard box model rules, would be:\
+\
+200px width + 10px left margin + 1px left border + 10px left padding + 10px right padding + 1 px right border + 10px right margin = 
+\b 242 px
+\b0 \
+\
+Under the border-box method, the total width is 200px. Margin is not counted, but padding and border are. \
+\
+You can still specify values as you would normally:\
+\
+width: 200px; \
+padding: 10px;\
+border: 1px solid red;\
+margin: 10px;\
+\
+However, in this case, width refers to the total box width. To figure out the width of the content area, you\'92d need to say:\
+\
+content width = 200px total width - 1px left border - 10px left padding - 10px right padding - 1 px right border\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\b \cf0 content width = 178px\
+\
+
+\b0 If you wish, you can leave out the two lines of CSS activating the border-box model and work with the standard CSS box model instead. Many find the math to be a bit more difficult. \
+\
+Browser support issues for box-sizing may also be a thing to deal with, depending on what browsers you must support \'97 see {\field{\*\fldinst{HYPERLINK "http://caniuse.com/#search=box-sizing"}}{\fldrslt http://caniuse.com/#search=box-sizing}}}

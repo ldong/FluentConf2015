@@ -1,0 +1,161 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1344\cocoasubrtf720
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww11560\viewh12300\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\f0\b\fs28 \cf0 Phase 7: Using responsive images with Picturefill\
+\pard\pardeftab720\sl660\sa375
+
+\b0 \cf0 Choosing a Responsive Image Solution {\field{\*\fldinst{HYPERLINK "http://www.smashingmagazine.com/2013/07/08/choosing-a-responsive-image-solution/"}}{\fldrslt http://www.smashingmagazine.com/2013/07/08/choosing-a-responsive-image-solution/}}\
+Which Responsive Image Solution Should You Use {\field{\*\fldinst{HYPERLINK "http://css-tricks.com/which-responsive-images-solution-should-you-use/"}}{\fldrslt http://css-tricks.com/which-responsive-images-solution-should-you-use/}}\
+PictureFill: A responsive image polyfill {\field{\*\fldinst{HYPERLINK "http://scottjehl.github.io/picturefill/"}}{\fldrslt http://scottjehl.github.io/picturefill/}}
+\b \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\b0 \cf0 PictureFill makes use of the <picture> element, a new tag not supported with many browsers (yet). PictureFill uses a polyfill to make the browser respond to this tag. We are working with PolyFill 2.1, which offers native <picture> support \'97 a great way to make your page future-forward.\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\b \cf0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+
+\b0 \cf0 1. Download PictureFill from above link and place in a js folder.\
+\
+2. Add the following code to the HTML page just before </head>\
+\
+	<script>\
+		// Picture element HTML5 shiv\
+		document.createElement( "picture" );\
+	</script>\
+	<script src="js/picturefill.min.js" async></script>\
+\
+3. Change the HTML in the document for <main>, starting around line 33:\
+\
+<main class="col-4">\
+			<!-- Substituting image using Picturefill\
+\
+			<img src="img/townhall-400.jpg" alt="Welcome to Arlington!"> -->\
+			<picture>\
+				<!--[if IE 9]><video style="display: none;"><![endif]-->\
+				<source srcset="img/townhall-400.jpg" media="(min-width: 1014px)">\
+				<source srcset="img/townhall-300.jpg" media="(min-width: 702px) and (max-width: 1013px) ">\
+				<!--[if IE 9]></video><![endif]-->\
+				<img srcset="img/townhall-188.jpg" alt="Welcome to Arlington!">\
+			</picture>\
+			<h2>Discover the world of Arlington!</h2>\
+			<p>Beautiful parks, great schools, and a strong sense of history makes Arlington one of the great places to live in eastern Massachusetts.</p>\
+			<p><a href="http://www.arlingtonma.gov" target="_blank">Read more &gt;&gt;</a></p>\
+		</main>\
+\
+4. Our CSS will cause this JS to break! The problem is here:\
+\
+main img \{\
+	float: left;\
+	margin-right: 1.875em;\
+	width: 100%;\
+	max-width: 400px;\
+\} \
+\
+This is causing the images to take up more width than you\'92d expect. Comment out this style (or delete it) and change it to this:\
+\
+main img \{\
+	width: auto;\
+	max-width: auto;\
+	float: left;\
+	margin-right: 1.875em;\
+\}\
+\
+Why the auto settings for width and max-width? Remember the div img style applies to the main image as well, since main is inside a div! \
+\
+\
+5. The media query for the <main> section of the page isn\'92t working for me with the newly subbed images.\
+\
+Change @media only screen and (min-width: 702px) and (max-width: 866px)  \{\
+to\
+@media only screen and (min-width: 1014px) \{\
+\
+Change \
+@media only screen and (max-width: 701px)  \{\
+main \{\
+	padding: 0 3.333333%; /* aligns with boxes underneath */\
+\}\
+\
+to \
+\
+@media only screen and (max-width: 1013px)  \{\
+(get rid of the main padding \'97 it doesn\'92t work anymore!)\
+\
+Also within this media query, get rid of main img styling - this conflicts with PictureFill (same as described above)\
+\
+So the new media query reads like this:\
+\
+/* adjust "discover" box again  */\
+@media only screen and (max-width: 1013px)  \{\
+main h2 \{\
+	font-size: 2em;\
+	padding-top: 0em;\
+\}\
+main p \{\
+	font-size: 1.2em;\
+	font-family: 'Cabin Condensed', sans-serif;\
+\}\
+/* main img \{\
+	float: none;\
+	margin: 0;\
+	width: 100%;\
+	max-width: 400px;\
+\} */\
+\}\
+\
+/* adjust  nav layout */\
+@media only screen and (max-width: 701px)  \{\
+nav ul a \{\
+	display: block;\
+	float: none;\
+	padding-left:3.333333%;\
+\}\
+/* splits nav into 2 columns\
+http://stackoverflow.com/questions/13104818/simple-2-column-navigation-with-css-and-a-single-list */\
+nav li:nth-child(even) \{\
+  width: 50%;\
+  float: right; \
+\}\
+nav li:nth-child(odd) \{\
+  width: 50%;\
+  float: left;\
+\}\
+header \{\
+	background: url(../img/boston-710.jpg) no-repeat;\
+	width: 100%;\
+	height: 149px;\
+\}\
+header h1 \{\
+	padding: 100px 0 0 10px;\
+	margin: 0;\
+	font-size: 1.6em;\
+\}\
+header h1 a \{\
+	color: #fff;\
+	text-decoration: none;\
+\}\
+\}\
+\
+\
+\
+Finally, I\'92d like to modify the styling for the smallest mobile version with the new picture. To that mobile media query (max width 479px), add the following:\
+\
+main \{\
+	padding-right: 1em; \
+\}\
+main h2 \{\
+	font-size: 1.5em;\
+	padding-top: 0em;\
+\}\
+main p \{\
+	font-size: 1em;\
+	font-family: 'Cabin Condensed', sans-serif;\
+\}\
+main img \{\
+	padding-right: 0em;\
+\}}

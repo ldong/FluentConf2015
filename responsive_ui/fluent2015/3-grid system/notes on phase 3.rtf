@@ -1,0 +1,117 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1344\cocoasubrtf720
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\margl1440\margr1440\vieww13980\viewh12580\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\sl120\slmult1\pardirnatural
+
+\f0\b\fs28 \cf0 Phase 3: Grid System
+\b0 \
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 \
+We\'92re stepping back to a simpler HTML design to think about the grid system. I\'92ve chosen the most complex row in the design to prototype here, along with a few potential variations I want to plan for.\
+\
+We are building a 4 column grid system. Just because you can build 12 columns doesn\'92t mean you should! If you want to build 12 columns, take the work for 4 columns and expand. (Yeah, more math.) You don\'92t have to build 12 columns unless you think you\'92ll need them. That\'92s the advantage of a fully custom design!\
+\
+HTML has changed as follows:\
+\
+\pard\tx720\tx814\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 <section class="row">\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural
+\cf0 		\
+     <div class="col-1\'94>\'85</div>\
+     <div class="col-1\'94>\'85</div>\
+     <div class="col-1\'94>\'85</div>\
+     <div class="col-1\'94>\'85</div>\
+\
+</section>\
+\
+Rows have been defined, each holding up to 4 columns. Rows contain the clear to balance the floats used in each column.\
+\
+Each row should contain 4 columns. That can be 4 col-1\'92s, 2 col-2\'92s, a col-1 and a col-3, a col-1, col-2, and col-1, or a col-4.\
+\
+Why <section>? No reason in particular, except it makes the code easier to read while we work on this mini-example. This way we avoid many layers of nested div\'92s, which gets hard to read. Nope, not very semantic, but very practical when learning. In \'93real life\'94, I\'92d recommend using div\'92s for your rows unless you have a compelling reason to use a different tag.\
+\
+In the CSS, we add a clear for the rows ({\field{\*\fldinst{HYPERLINK "http://css-tricks.com/snippets/css/clear-fix/"}}{\fldrslt http://css-tricks.com/snippets/css/clear-fix/}})\
+\
+Then style each column. Based on settings for the single column, we can calculate the additional widths for the other columns. For example, for a 2 column width, add 20.8333333% plus 20.8333333%, plus 3.333333% which was in between the two columns. \
+\
+Background colors were added to make it visually clear in the browser which class is activated on which row.\
+\
+Note the grid is NOT currently responsive \'97 there are no media queries.\
+\
+\
+
+\b CSS added:
+\b0 \
+\
+/* grid system */\
+\
+/* row class will clear floats from previous row */\
+.row:before, \
+.row:after \{\
+    content:"";\
+    display: table;\
+    clear:both;\
+\}\
+.col-1 \{\
+	float: left;\
+	width: 20.8333333%;\
+	margin-left: 3.333333%;\
+	min-height: 1px; \
+	background-color: #ccf;\
+\}\
+.col-2 \{\
+	float: left;\
+	width: 44.9999999%;\
+	margin-left: 3.333333%;\
+	min-height: 1px; \
+	background-color: #cff;\
+\}\
+.col-3 \{\
+	float: left;\
+	width: 69.1666665%;\
+	margin-left: 3.333333%;\
+	min-height: 1px; \
+	background-color: #ffc;\
+\}\
+.col-4 \{\
+	width: 96.66666%;\
+	margin-left: 3.333333%;\
+	min-height: 1px; \
+	background-color: #fcf;\
+\}\
+\
+/* You could efficiently combine some attributes\
+of these columns with a different selector.\
+Code would then look like this. */\
+\
+/* grid system */\
+\
+/* row class will clear floats from previous row */\
+.row:before, \
+.row:after \{\
+    content:"";\
+    display: table;\
+    clear:both;\
+\}\
+[class*='col-'] \{\
+	float: left;\
+	margin-left: 3.33333%;\
+	min-height: 1px;\
+\}\
+.col-1 \{\
+	width: 20.83333%;\
+	background-color: #ccf;\
+\}\
+.col-2 \{\
+	width: 44.99999%;\
+	background-color: #cff;\
+\}\
+.col-3 \{\
+	width: 69.16665%;\
+	background-color: #ffc;\
+\}\
+.col-4 \{\
+	width: 96.66666%;\
+	background-color: #fcf;\
+\}}
