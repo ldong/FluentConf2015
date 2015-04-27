@@ -259,6 +259,9 @@ Understand the life cycle
          Knowledge
 ```
 
+--
+
+## Understand workflow
 #### Overview
 
 Dont reinvent the wheels, see what threats/bugs/vulns already exist.
