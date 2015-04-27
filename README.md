@@ -14,3 +14,7 @@ Date: Mon Apr 20 19:47:12 PDT 2015
 
 4. [3:45pm Transform into Your Team's Web Security Guru Stephen Teilhet](./web_security/)
 
+## Summary
+
+[Notes](http://htmlpreview.github.io/?https://github.com/ldong/FluentConf2015/blob/master/demo.html)
+
