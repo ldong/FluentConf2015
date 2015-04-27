@@ -1,0 +1,907 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>FluentConf 2015</title>
+  <style type="text/css">
+    body {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: #222;
+  background-color: #f7f7f7;
+  font-size: 100%;
+}
+
+.slide {
+  position: absolute;
+  top: 0; bottom: 0;
+  left: 0; right: 0;
+}
+
+.slide-content {
+  width: 800px;
+  height: 600px;
+  overflow: hidden;
+  margin: 80px auto 0 auto;
+  padding: 30px;
+
+  font-weight: 200;
+  font-size: 200%;
+  line-height: 1.375;
+}
+
+.controls {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+.arrow {
+  width: 0; height: 0;
+  border: 30px solid #333;
+  float: left;
+  margin-right: 30px;
+
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.prev {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+
+  border-left-width: 0;
+  border-right-width: 50px;
+}
+
+.next {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+
+  border-left-width: 50px;
+  border-right-width: 0;
+}
+
+.prev:hover {
+  border-right-color: #888;
+  cursor: pointer;
+}
+
+.next:hover {
+  border-left-color: #888;
+  cursor: pointer;
+}
+
+h1 {
+  font-size: 300%;
+  line-height: 1.2;
+  text-align: center;
+  margin: 170px 0 0;
+}
+
+h2 {
+  font-size: 100%;
+  line-height: 1.2;
+  margin: 5px 0;
+  text-align: center;
+  font-weight: 200;
+}
+
+h3 {
+  font-size: 140%;
+  line-height: 1.2;
+  border-bottom: 1px solid #aaa;
+  margin: 0;
+  padding-bottom: 15px;
+}
+
+ul {
+  padding: 20px 0 0 60px;
+  font-weight: 200;
+  line-height: 1.375;
+}
+
+.author h1 {
+  font-size: 170%;
+  font-weight: 200;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.author h3 {
+  font-weight: 100;
+  text-align: center;
+  font-size: 95%;
+  border: none;
+}
+
+a {
+  text-decoration: none;
+  color: #44a4dd;
+}
+
+a:hover {
+  color: #66b5ff;
+}
+
+pre {
+  font-size: 60%;
+  line-height: 1.3;
+}
+
+.progress {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+}
+
+.progress-bar {
+  width: 0%;
+  height: 3px;
+  background-color: #b4b4b4;
+
+  -webkit-transition: width 0.05s ease-out;
+  -moz-transition: width 0.05s ease-out;
+  -o-transition: width 0.05s ease-out;
+  transition: width 0.05s ease-out;
+}
+
+.hidden {
+  display: none;
+}
+
+@media (max-width: 850px) {
+
+  body {
+    font-size: 70%;
+  }
+
+  .slide-content {
+    width: auto;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  h1 {
+    margin-top: 120px;
+  }
+
+  .prev, .prev:hover {
+    border-right-color: rgba(135, 135, 135, 0.5);
+  }
+
+  .next, .next:hover {
+    border-left-color: rgba(135, 135, 135, 0.5);
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    font-size: 50%;
+    overflow: hidden;
+  }
+
+  .slide-content {
+    padding: 10px;
+    margin-top: 10px;
+    height: 340px;
+  }
+
+  h1 {
+    margin-top: 50px;
+  }
+
+  ul {
+    padding-left: 25px;
+  }
+}
+
+@media print {
+  * {
+    -webkit-print-color-adjust: exact;
+  }
+
+  @page {
+    size: letter;
+  }
+
+  .hidden {
+    display: inline;
+  }
+
+  html {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  body {
+    margin: 0 auto !important;
+    border: 0;
+    padding: 0;
+    float: none !important;
+    overflow: visible;
+    background: none !important;
+    font-size: 52%;
+  }
+
+  .progress, .controls {
+    display: none;
+  }
+
+  .slide {
+    position: static;
+  }
+
+  .slide-content {
+    border: 1px solid #222;
+    margin-top: 0;
+    margin-bottom: 40px;
+    height: 3.5in;
+    overflow: visible;
+  }
+
+  .slide:nth-child(even) {
+    /* 2 slides per page */
+    page-break-before: always;
+  }
+}
+
+/*
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+*/
+
+code, pre {
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  overflow: auto;
+  padding: 6px 10px;
+}
+
+code {
+  padding: 0 5px;
+}
+
+pre>code {
+  margin: 0; padding: 0;
+  border: none;
+  background: transparent;
+}
+
+pre .comment,
+pre .template_comment,
+pre .diff .header,
+pre .javadoc {
+  color: #998;
+  font-style: italic
+}
+
+pre .keyword,
+pre .css .rule .keyword,
+pre .winutils,
+pre .javascript .title,
+pre .nginx .title,
+pre .subst,
+pre .request,
+pre .status {
+  color: #333;
+  font-weight: bold
+}
+
+pre .number,
+pre .hexcolor,
+pre .ruby .constant {
+  color: #099;
+}
+
+pre .string,
+pre .tag .value,
+pre .phpdoc,
+pre .tex .formula {
+  color: #d14
+}
+
+pre .title,
+pre .id {
+  color: #900;
+  font-weight: bold
+}
+
+pre .javascript .title,
+pre .lisp .title,
+pre .clojure .title,
+pre .subst {
+  font-weight: normal
+}
+
+pre .class .title,
+pre .haskell .type,
+pre .vhdl .literal,
+pre .tex .command {
+  color: #458;
+  font-weight: bold
+}
+
+pre .tag,
+pre .tag .title,
+pre .rules .property,
+pre .django .tag .keyword {
+  color: #000080;
+  font-weight: normal
+}
+
+pre .attribute,
+pre .variable,
+pre .lisp .body {
+  color: #008080
+}
+
+pre .regexp {
+  color: #009926
+}
+
+pre .class {
+  color: #458;
+  font-weight: bold
+}
+
+pre .symbol,
+pre .ruby .symbol .string,
+pre .lisp .keyword,
+pre .tex .special,
+pre .prompt {
+  color: #990073
+}
+
+pre .built_in,
+pre .lisp .title,
+pre .clojure .built_in {
+  color: #0086b3
+}
+
+pre .preprocessor,
+pre .pi,
+pre .doctype,
+pre .shebang,
+pre .cdata {
+  color: #999;
+  font-weight: bold
+}
+
+pre .deletion {
+  background: #fdd
+}
+
+pre .addition {
+  background: #dfd
+}
+
+pre .diff .change {
+  background: #0086b3
+}
+
+pre .chunk {
+  color: #aaa
+}
+
+
+  </style>
+</head>
+<body>
+    <div class="progress">
+    <div class="progress-bar"></div>
+  </div>
+
+  <div class="slide" id="slide-1">
+    <section class="slide-content"><h1 id="fluentconf-2015-notes">FluentConf 2015 Notes</h1>
+<h2 id="san-francisco-ca">San Francisco, CA</h2>
+<h2 id="april-20-2015">April 20, 2015</h2>
+<h2 id="lin-dong">Lin Dong</h2>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-2">
+    <section class="slide-content"><h1 id="morning-section">Morning Section</h1>
+<h2 id="1-powering-apis-with-go">1. Powering APIs with Go</h2>
+<h2 id="-william-kennedy">-- William Kennedy</h2>
+<h2 id="2-w3c-web-performance-apis-in-practice">2. W3C Web Performance APIs in Practice</h2>
+<h2 id="-alois-reitbauer">-- Alois Reitbauer</h2>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-3">
+    <section class="slide-content"><h3 id="powering-apis-with-go-">Powering APIs with <code>Go</code></h3>
+<ol>
+<li><p><a href="https://golang.org/">Go</a> is very like C just better.</p>
+<!-- Golang, is a programming language initially developed at Google in 2007
+by Robert Griesemer, Rob Pike, and Ken Thompson -->
+</li>
+<li><p><a href="https://github.com/ArdanStudios/gotraining">Download</a> via <code>git clone https://github.com/ArdanStudios/gotraining</code></p>
+</li>
+<li><p>i.e. <a href="https://github.com/ArdanStudios/gotraining/tree/master/01-language_syntax/01-variables">Variables - Language Syntax</a></p>
+</li>
+</ol>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-4">
+    <section class="slide-content"><h3 id="go-build-in-type">Go: build-in type</h3>
+<pre><code class="lang-go"><span class="keyword">package</span> main
+<span class="keyword">import</span> fmt
+
+<span class="keyword">func</span> main(){
+  <span class="keyword">var</span> a <span class="typename">int</span>
+  <span class="keyword">var</span> b <span class="typename">string</span>
+  <span class="keyword">var</span> c <span class="typename">float64</span> <span class="comment">// declare and assign to its default value</span>
+  <span class="keyword">var</span> d <span class="typename">bool</span>
+}
+
+aa :=<span class="number"> 10</span>
+bb := <span class="string">"hello"</span>
+cc :=<span class="number"> 3.1415</span>
+dd := <span class="constant">false</span></code></pre>
+<ol>
+<li><p><code>var</code> will assign it to 0 value</p>
+</li>
+<li><p><code>int</code> is architecture specific.</p>
+</li>
+<li><p><code>string</code> is immutable by default.</p>
+</li>
+</ol>
+</section>
+  </div>
+  <div class="slide hidden -" id="slide-5">
+    <section class="slide-content"><h3 id="3-take-aways">3 take aways</h3>
+<ol>
+<li><p>Write codes in a way can gain <strong>Mechanical Sympathy</strong></p>
+<!-- Try to write the code that can allow the compilers to help you optimize
+the efficency -->
+</li>
+<li><p>Using <strong>logs</strong> more often than debuggers</p>
+<!-- There are limits for hotfixing on bugs on production, so writing logs is
+more proper, and because Go does not have a builtin debugger for you -->
+</li>
+<li><p><a href="http://nathany.com/good/">There is no inheritance in Go</a>, i.e.</p>
+<ol>
+<li><p><a href="http://stackoverflow.com/questions/1727250/embedding-instead-of-inheritance-in-go">StackOverflow</a></p>
+</li>
+<li><p><a href="http://golangtutorials.blogspot.com/2011/06/inheritance-and-subclassing-in-go-or.html">Inheritance and subclassing in Go - Blog</a></p>
+</li>
+</ol>
+</li>
+</ol>
+<!-- 4. [You Don't Like Google's Go Because You Are Small](http://tmikov.blogspot.com/2015/02/you&#45;dont&#45;like&#45;googles&#45;go&#45;because&#45;you.html) -->
+
+<p>I would advise to read the <a href="https://golang.org/doc/faq">doc</a> first, and
+understand its philosophy before you actually start writting codes.</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-6">
+    <section class="slide-content"><h3 id="w3c-web-performance-apis-in-practice">W3C Web Performance APIs in Practice</h3>
+<ol>
+<li><p>Firstly, download <a href="https://github.com/AloisReitbauer/w3cinpractice">repo</a> via <code>git clone https://github.com/AloisReitbauer/w3cinpractice</code></p>
+</li>
+<li><p><code>node server.js</code> and <a href="http://localhost:3000/overview.html">Overview</a></p>
+</li>
+</ol>
+<!--
+  which is exactly the same as viewing from the Network [panel](http://en.wikipedia.org/wiki/Panel_(computer_software) --></section>
+  </div>
+  <div class="slide hidden" id="slide-7">
+    <section class="slide-content"><h3 id="more-apis">More APIs</h3>
+<ol>
+<li><a href="https://developer.mozilla.org/en-US/docs/Navigation_timing">Navigation Timing | MDN</a></li>
+<li><a href="http://www.html5rocks.com/en/tutorials/webperformance/usertiming/">User Timing API: Understanding your Web App - HTML5 Rocks</a></li>
+<li><a href="http://www.sitepoint.com/10-html5-apis-worth-looking/">10 HTML5 APIs Worth Looking Into</a></li>
+</ol>
+<p><img src="https://w3c.github.io/resource-timing/resource-timing-overview-1.png" alt="Timing life cycle"></p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-8">
+    <section class="slide-content"><h3 id="3-take-aways">3 take aways</h3>
+<ol>
+<li><p>Browsers dont do any black magics, understand how browsers profile. See <a href="http://w3.org/TR/resource-timing/">w3 specs</a>.</p>
+</li>
+<li><p>Take advantage of caching, including CDN, localstorage.</p>
+<ol>
+<li><p>170page Book: <a href="http://shop.oreilly.com/product/9780596529307.do">High Performance Web Sites</a></p>
+</li>
+<li><p><a href="https://www.mnot.net/cache_docs/">Caching Tutorial</a></p>
+</li>
+<li><p><a href="https://developers.google.com/speed/docs/insights/LeverageBrowserCaching">Google Leverage Browser Caching</a></p>
+</li>
+</ol>
+</li>
+<li><p>Be mindful about performance gain.</p>
+</li>
+</ol>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-9">
+    <section class="slide-content"><h1 id="afternoon-section">Afternoon Section</h1>
+<h2 id="1-roll-your-own-responsive-design">1. Roll Your Own Responsive Design</h2>
+<h2 id="-jen-kramer">-- Jen Kramer</h2>
+<h2 id="2-transform-into-a-web-security-guru">2. Transform into a Web Security Guru</h2>
+<h2 id="-stephen-teilhet">-- Stephen Teilhet</h2>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-10">
+    <section class="slide-content"><h3 id="roll-your-own-responsive-design">Roll Your Own Responsive Design</h3>
+<ol>
+<li><p>Let&#39;s get responsive, and start asking questions.</p>
+</li>
+<li><p><a href="http://github.com/jen4web/fluent2015">Download</a> via <code>git clone http://github.com/jen4web/fluent2015</code></p>
+</li>
+</ol>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-11">
+    <section class="slide-content"><!-- 1  What How  when Why
+     2  Why  when How  What -->
+
+<h2 id="-questions-"><strong>Questions</strong></h2>
+<ol>
+<li><p>What is <em>responsive</em> design?</p>
+</li>
+<li><p>Why do we even care responsiveness?</p>
+</li>
+<li><p>How do we achieve/implement it?</p>
+</li>
+</ol>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-12">
+    <section class="slide-content"><h2 id="-responses-1-what-is-responsive-"><strong>Responses - 1. What is responsive? </strong></h2>
+<ol>
+<li><p>According to <a href="http://twitter.com/jen4web">Jen</a>, responsive design can be defined by three characterizes:</p>
+<ol>
+<li><p>Flexible grid based layout</p>
+</li>
+<li><p>Images that resize</p>
+</li>
+<li><p>Media quires (CSS)</p>
+</li>
+</ol>
+</li>
+</ol>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-13">
+    <section class="slide-content"><h2 id="-responses-2-why-do-we-care-"><strong>Responses - 2. Why do we care? </strong></h2>
+<ol>
+<li><p>Provide the <strong>consistent</strong> user experience throughout the product.</p>
+</li>
+<li><p>Allow Users/Customers using <strong>minimal effort</strong> to adopt transition for
+different platforms. i.e. iPad, iPhone and Desktop</p>
+<!-- Making things smooth -->
+</li>
+<li><p><a href="http://johnpolacek.github.io/scrolldeck.js/decks/responsive/">Things to consider</a>, <em>recommend to read</em></p>
+<ol>
+<li>Time &amp; Money</li>
+<li>Older Browsers</li>
+<li>Performance</li>
+<li>Content, and more</li>
+</ol>
+</li>
+</ol>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-14">
+    <section class="slide-content"><h2 id="-responses-3-how-can-we-be-responsive-"><strong> Responses - 3. How can we be responsive?</strong></h2>
+<p>Responsive examples</p>
+<ol>
+<li><p><a href="http://www.bostonglobe.com/">The Boston Globe</a></p>
+</li>
+<li><p><a href="corporate.target.com">Target Corp</a></p>
+</li>
+</ol>
+<p>Counter Example, Airlines, Why?</p>
+<ol>
+<li><p><a href="https://www.southwest.com/">Southwest</a></p>
+</li>
+<li><p><a href="https://www.aa.com">AA</a></p>
+</li>
+</ol>
+<h4 id="demo">Demo</h4>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-15">
+    <section class="slide-content"><h3 id="3-take-aways">3 take aways</h3>
+<ol>
+<li><p>Know your audiance, <a href="http://en.wikipedia.org/wiki/Responsive_web_design">mobile first</a></p>
+<!-- Know your audiance's platform, i.e. airlines vs enterprises -->
+</li>
+<li><p>CSS is powerful, dont use JavaScript unless you have to.</p>
+<!-- use it and be good at it. -->
+</li>
+<li><p>Fast Internet, does not guarantee fast response.</p>
+<!-- People dont have patient, at least not for you --></li>
+</ol>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-16">
+    <section class="slide-content"><p>Tips:</p>
+<ol>
+<li><p>Using fonts instead of images</p>
+</li>
+<li><p><a href="https://developers.google.com/web/fundamentals/layouts/rwd-fundamentals/">Responsive CSS -- Google</a>:</p>
+<ol>
+<li><p>Using viewport, <code>em</code> instead of <code>px</code></p>
+</li>
+<li><p>Using CSS media queries</p>
+</li>
+<li><p>Using <a href="https://css-tricks.com/css-sprites/">CSS sprite</a></p>
+</li>
+<li><p>know how to choose break points, i.e. screen sizes</p>
+</li>
+</ol>
+</li>
+<li><p>HiSrc, to support retina display</p>
+</li>
+</ol>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-17">
+    <section class="slide-content"><h3 id="transform-into-a-web-security-guru">Transform into a Web Security Guru</h3>
+<ol>
+<li><p>High level concepts</p>
+</li>
+<li><p><a href="https://github.com/steilhet/FluentTalkSecurityInfo">Info Repo</a></p>
+</li>
+</ol>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-18">
+    <section class="slide-content"><h2 id="understand-workflow">Understand workflow</h2>
+<h4 id="triangle">Triangle</h4>
+<p>Understand the life cycle</p>
+<pre><code>            /\\
+ Security  // \\  Pen-Testing
+    SAST  //   \\     DAST
+         //     \\
+        //_______\\
+          AppSec
+         Knowledge</code></pre>
+<h4 id="overview">Overview</h4>
+<p>Dont reinvent the wheels, see what threats/bugs/vulns already exist.</p>
+<pre><code>SANS Top 25     OWASP Top 10
+       \       /
+        v     v
+       CWE(vulns)
+       /        \
+      v          v
+   CAPEC         CVE
+(attacks)      (observed vulns)</code></pre>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-19">
+    <section class="slide-content"><h2 id="apporaching-problems">Apporaching problems</h2>
+<h4 id="static-analysis">Static Analysis</h4>
+<p>Source -&gt; Sink(execution), analysis the source code, try to find a hole.</p>
+<h4 id="dynamic-analysis">Dynamic Analysis</h4>
+<p>Using a proxy, i.e. OWASP ZAP, sort like brute force.</p>
+<p>1 + 1 &gt; 2, combine both tools to dive deep</p>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-20">
+    <section class="slide-content"><h2 id="tools-for-automation-">Tools for automation.</h2>
+<p>Stand on the shoulders of giants.</p>
+<ol>
+<li><p><a href="http://www.toolswatch.org">Toolswatch</a></p>
+</li>
+<li><p><a href="https://github.com/beefproject/beef">BEEF</a> exploitation scripting tool</p>
+</li>
+</ol>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-21">
+    <section class="slide-content"><h2 id="3-take-aways">3 take aways</h2>
+<ol>
+<li><p>Dont do test on production</p>
+</li>
+<li><p>Keep skills update and look out for current events. i.e. heartbleed and shellshock 2014</p>
+</li>
+<li><p>Be open-mind</p>
+</li>
+</ol>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-22">
+    <section class="slide-content"><h2 id="fluentconf-2015">FluentConf 2015</h2>
+<h4 id="summary">Summary</h4>
+<p><strong>I</strong>nteresting, <strong>I</strong>nsightful, <strong>I</strong>nspiring.</p>
+<!--
+
+1.
+ Interest topics, FluentConf has various of topics available
+ For instance like Go, who would know there would be a topic about go on a
+ FrontEnd conference. Web Security, is very intersting,
+ I never worked anything like that.
+
+2.
+  Insightful knowledges, all the speakers are been around for a while
+  web perf, Alois Reitbauer, is in w3 committee.
+
+3.
+  Inspiring, CSS, I didnt know CSS can be so powerful to work with browsers
+  it gives me hands on experience to work on --></section>
+  </div>
+  <div class="slide hidden" id="slide-23">
+    <section class="slide-content"><h1 id="thank-you">Thank you</h1>
+</section>
+  </div>
+  <div class="slide hidden" id="slide-24">
+    <section class="slide-content"><div class="author">
+  <h1 class="name">Lin Dong</h1>
+    <h3 class="twitter">
+      <a href="http://twitter.com/@_ldong">@_ldong</a>
+    </h3>
+    <h3 class="email">
+      <a href="mailto:ldong@zscaler.com">ldong@zscaler.com</a>
+    </h3>
+</div>
+</section>
+  </div>
+
+  <div class="controls">
+    <div class="arrow prev"></div>
+    <div class="arrow next"></div>
+  </div>
+
+
+  <script type="text/javascript">
+    /**
+ * Returns the current page number of the presentation.
+ */
+function currentPosition() {
+  return parseInt(document.querySelector('.slide:not(.hidden)').id.slice(6));
+}
+
+
+/**
+ * Navigates forward n pages
+ * If n is negative, we will navigate in reverse
+ */
+function navigate(n) {
+  var position = currentPosition();
+  var numSlides = document.getElementsByClassName('slide').length;
+
+  /* Positions are 1-indexed, so we need to add and subtract 1 */
+  var nextPosition = (position - 1 + n) % numSlides + 1;
+
+  /* Normalize nextPosition in-case of a negative modulo result */
+  nextPosition = (nextPosition - 1 + numSlides) % numSlides + 1;
+
+  document.getElementById('slide-' + position).classList.add('hidden');
+  document.getElementById('slide-' + nextPosition).classList.remove('hidden');
+
+  updateProgress();
+  updateURL();
+  updateTabIndex();
+}
+
+
+/**
+ * Updates the current URL to include a hashtag of the current page number.
+ */
+function updateURL() {
+  window.history.replaceState({} , null, '#' + currentPosition());
+}
+
+
+/**
+ * Sets the progress indicator.
+ */
+function updateProgress() {
+  var progressBar = document.querySelector('.progress-bar');
+
+  if (progressBar !== null) {
+    var numSlides = document.getElementsByClassName('slide').length;
+    var position = currentPosition() - 1;
+    var percent = (numSlides === 1) ? 100 : 100 * position / (numSlides - 1);
+    progressBar.style.width = percent.toString() + '%';
+  }
+}
+
+
+/**
+ * Removes tabindex property from all links on the current slide, sets
+ * tabindex = -1 for all links on other slides. Prevents slides from appearing
+ * out of control.
+ */
+function updateTabIndex() {
+  var allLinks = document.querySelectorAll('.slide a');
+  var position = currentPosition();
+  var currentPageLinks = document.getElementById('slide-' + position).querySelectorAll('a');
+  var i;
+
+  for (i = 0; i < allLinks.length; i++) {
+    allLinks[i].setAttribute('tabindex', -1);
+  }
+
+  for (i = 0; i < currentPageLinks.length; i++) {
+    currentPageLinks[i].removeAttribute('tabindex');
+  }
+}
+
+/**
+ * Determines whether or not we are currently in full screen mode
+ */
+function isFullScreen() {
+  return document.fullscreenElement ||
+         document.mozFullScreenElement ||
+         document.webkitFullscreenElement ||
+         document.msFullscreenElement;
+}
+
+/**
+ * Toggle fullScreen mode on document element.
+ * Works on chrome (>= 15), firefox (>= 9), ie (>= 11), opera(>= 12.1), safari (>= 5).
+ */
+function toggleFullScreen() {
+  /* Convenient renames */
+  var docElem = document.documentElement;
+  var doc = document;
+
+  docElem.requestFullscreen =
+      docElem.requestFullscreen ||
+      docElem.msRequestFullscreen ||
+      docElem.mozRequestFullScreen ||
+      docElem.webkitRequestFullscreen.bind(docElem, Element.ALLOW_KEYBOARD_INPUT);
+
+  doc.exitFullscreen =
+      doc.exitFullscreen ||
+      doc.msExitFullscreen ||
+      doc.mozCancelFullScreen ||
+      doc.webkitExitFullscreen;
+
+  isFullScreen() ? doc.exitFullscreen() : docElem.requestFullscreen();
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Update the tabindex to prevent weird slide transitioning
+  updateTabIndex();
+
+  // If the location hash specifies a page number, go to it.
+  var page = window.location.hash.slice(1);
+  if (page) {
+    navigate(parseInt(page) - 1);
+  }
+
+  document.onkeydown = function (e) {
+    var kc = e.keyCode;
+
+    // left, down, H, J, backspace, PgUp - BACK
+    // up, right, K, L, space, PgDn - FORWARD
+    // enter - FULLSCREEN
+    if (kc === 37 || kc === 40 || kc === 8 || kc === 72 || kc === 74 || kc === 33) {
+      navigate(-1);
+    } else if (kc === 38 || kc === 39 || kc === 32 || kc === 75 || kc === 76 || kc === 34) {
+      navigate(1);
+    } else if (kc === 13) {
+      toggleFullScreen();
+    }
+  };
+
+  if (document.querySelector('.next') && document.querySelector('.prev')) {
+    document.querySelector('.next').onclick = function (e) {
+      e.preventDefault();
+      navigate(1);
+    };
+
+    document.querySelector('.prev').onclick = function (e) {
+      e.preventDefault();
+      navigate(-1);
+    };
+  }
+});
+
+
+  </script>
+</body>
+</html>
